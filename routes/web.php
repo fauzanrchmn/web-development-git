@@ -2,13 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home.home');
 });
-
-// product
-// Route::resource('product', ProductController::class);
 
 Route::get('product', [ProductController::class, 'index'])->name('product.index');
 Route::get('product/show/{id}', [ProductController::class, 'show'])->name('product.show');
@@ -18,3 +16,13 @@ Route::get('product/edit/{id}', [ProductController::class, 'edit'])->name('produ
 Route::put('product/update/{id}', [ProductController::class, 'update'])->name('product.update');
 Route::delete('product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
+// Login
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('auth.authenticate');
+
+// Register
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'store'])->name('auth.store');
+
+// Logout
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
